@@ -68,14 +68,14 @@ function ApiTester() {
 
           <div className="flex justify-center gap-2 w-full p-2">
             <button
-              className="w-[30%] hover:text-white font-medium font-serif rounded border-2 border-black bg-green-400 p-2"
+              className="w-[30%] hover:text-white font-bold space-x-4 font-serif rounded border-2 border-black bg-green-400 p-2"
               onClick={handleApiRequest}
             >
               Check
             </button>
 
             <button
-              className="w-[30%] hover:text-white font-medium font-serif rounded border-2 border-black bg-red-800 p-2"
+              className="w-[30%] hover:text-white font-bold font-serif rounded border-2 border-black bg-red-800 p-2"
               onClick={handleReset}
             >
               Reset
