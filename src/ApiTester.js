@@ -41,7 +41,6 @@ function ApiTester() {
     setInputValue("");
     setTitle("");
     setResponse(null);
-    // window.location.reload();
   };
 
   return (
@@ -54,6 +53,7 @@ function ApiTester() {
               value={inputValue}
               onChange={handleInputChange}
               placeholder="Content"
+              required
               className=" rounded p-1 mb-3 h-40 w-full max-w-screen"
             />
 
@@ -62,20 +62,22 @@ function ApiTester() {
               value={title}
               onChange={handleTitleChange}
               placeholder="Title"
+              required
               className="rounded p-1 w-1/2"
             />
           </div>
 
           <div className="flex justify-center gap-2 w-full p-2">
             <button
-              className="w-[30%] hover:text-white font-bold space-x-4 font-serif rounded border-2 border-black bg-green-400 p-2"
+              className="w-[30%] font-bold space-x-4 font-joane hover:rounded-2xl rounded border-2 border-black bg-green-400 p-2"
               onClick={handleApiRequest}
+              disabled={!inputValue || !title}
             >
               Check
             </button>
 
             <button
-              className="w-[30%] hover:text-white font-bold font-serif rounded border-2 border-black bg-red-800 p-2"
+              className="w-[30%] hover:text-white font-joane text-amber-300 font-bold rounded border-2 border-black bg-red-800 p-2 hover:rounded-2xl"
               onClick={handleReset}
             >
               Reset
@@ -84,11 +86,94 @@ function ApiTester() {
         </div>
       </div>
 
-      <div className="text-white border-black bg-slate-900 justify-center items-center rounded-2xl max-w-6xl overflow-hidden">
+      <div className="text-white border-black bg-slate-900 justify-center items-center rounded-3xl max-w-3xl overflow-hidden">
         {isLoading ? (
-          <p className="p-4">Checking...</p>
+          <p className="px-10 py-2 text-amber-300 font-joane">Checking...</p>
         ) : response ? (
-          <pre className="p-2">{JSON.stringify(response, null, 2)}</pre>
+          <div className="p-2 ">
+            <h2 className="text-2xl font-bold font-joane text-center text-amber-300">
+              Response :
+            </h2>
+            <div className="p-5">
+              <p>
+                <strong className="text-amber-300 font-joane">
+                  - Success :
+                </strong>{" "}
+                {response.success ? "Yes" : "No"}
+              </p>
+              <p>
+                {" "}
+                <strong className="text-amber-300 font-joane">
+                  - Message :
+                </strong>{" "}
+                {response.message}
+              </p>
+              <p>
+                <strong className="text-amber-300 font-joane">
+                  - Confidence level created by AI :
+                </strong>{" "}
+                {response["Confidence level created by AI"]}
+              </p>
+              <p>
+                <strong className="text-amber-300 font-joane">
+                  - Confidence level created by Human :
+                </strong>{" "}
+                {response["Confidence level created by Human"]}
+              </p>
+              <p>
+                <strong className="text-amber-300 font-joane">
+                  - AI Check :
+                </strong>{" "}
+                {response["AI Check"]}
+              </p>
+              <p>
+                <strong className="text-amber-300 font-joane">
+                  - Plagiarised :
+                </strong>{" "}
+                {response.Plagiarised}
+              </p>
+              <p>
+                <strong className="text-amber-300 font-joane">
+                  - Creative :
+                </strong>{" "}
+                {response.Creative}
+              </p>
+              <p>
+                <strong className="text-amber-300 font-joane">
+                  - Total characters :
+                </strong>{" "}
+                {response["Total characters"]}
+              </p>
+              <p>
+                <strong className="text-amber-300 font-joane">
+                  - Total sentences :
+                </strong>{" "}
+                {response["Total sentences"]}
+              </p>
+              <p>
+                <strong className="text-amber-300 font-joane">
+                  - Total paragraphs :
+                </strong>{" "}
+                {response["Total paragraphs"]}
+              </p>
+              <p>
+                <strong className="text-amber-300 font-joane">
+                  - Credits :
+                </strong>{" "}
+                {response.credits}
+              </p>
+              <p>
+                <strong className="text-amber-300 font-joane">- Title :</strong>{" "}
+                {response.title}
+              </p>
+              <p>
+                <strong className="text-amber-300 font-joane">
+                  - Content :
+                </strong>{" "}
+                {response.content}
+              </p>
+            </div>
+          </div>
         ) : null}
       </div>
     </div>
