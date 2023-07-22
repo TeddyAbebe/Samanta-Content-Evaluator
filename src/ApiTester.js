@@ -5,10 +5,12 @@ function ApiTester() {
   const [response, setResponse] = useState(null);
   const [inputValue, setInputValue] = useState("");
   const [title, setTitle] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   // Function to handle API request
   const handleApiRequest = async () => {
     try {
+      setIsLoading(true);
       const payload = {
         content: inputValue,
         title: title,
@@ -21,6 +23,8 @@ function ApiTester() {
       setResponse(response.data);
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -36,7 +40,7 @@ function ApiTester() {
   const handleReset = () => {
     setInputValue("");
     setTitle("");
-    // setResponse(null);
+    setResponse(null);
     // window.location.reload();
   };
 
@@ -78,8 +82,12 @@ function ApiTester() {
         </div>
       </div>
 
-      <div className="text-white border-black bg-slate-900 justify-center items-center rounded-2xl">
-        {response && <pre>{JSON.stringify(response, null, 2)}</pre>}
+      <div className="text-white border-black bg-slate-900 justify-center items-center rounded-2xl max-w-2xl overflow-hidden">
+        {isLoading ? (
+          <p className="p-4">Checking...</p>
+        ) : response ? (
+          <pre>{JSON.stringify(response, null, 2)}</pre>
+        ) : null}
       </div>
     </div>
   );
