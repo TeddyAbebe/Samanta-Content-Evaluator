@@ -82,11 +82,11 @@ function ApiTester() {
         </div>
       </div>
 
-      <div className="text-white border-black bg-slate-900 justify-center items-center rounded-2xl max-w-2xl overflow-hidden">
+      <div className="text-white border-black bg-slate-900 justify-center items-center rounded-2xl max-w-2xl overflow-auto">
         {isLoading ? (
           <p className="p-4">Checking...</p>
         ) : response ? (
-          <pre>{JSON.stringify(response, null, 2)}</pre>
+          <pre className="p-2">{JSON.stringify(response, null, 2)}</pre>
         ) : null}
       </div>
     </div>
