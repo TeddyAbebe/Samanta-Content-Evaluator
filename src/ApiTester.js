@@ -46,7 +46,7 @@ function ApiTester() {
   return (
     <div className="flex flex-col gap-5 items-center">
       <div className="flex w-full justify-center items-center ">
-        <div className="flex flex-col w-[40%] bg-slate-900 justify-center items-center rounded-2xl">
+        <div className="flex flex-col mx-5 md:mx-0 w-full max-w-xl bg-slate-900 justify-center items-center rounded-3xl">
           <div className="flex flex-col w-full p-3">
             <textarea
               type="text"
@@ -54,7 +54,7 @@ function ApiTester() {
               onChange={handleInputChange}
               placeholder="Content"
               required
-              className=" rounded p-1 mb-3 h-40 w-full max-w-screen"
+              className="rounded-xl p-1 mb-3 h-32 w-full max-w-screen"
             />
 
             <input
@@ -86,15 +86,15 @@ function ApiTester() {
         </div>
       </div>
 
-      <div className="text-white border-black bg-slate-900 justify-center items-center rounded-3xl max-w-3xl overflow-hidden">
+      <div className="text-white mx-5 md:mx-0 border-black bg-slate-900 justify-center items-center rounded-3xl max-w-xl overflow-hidden">
         {isLoading ? (
           <p className="px-10 py-2 text-amber-300 font-joane">Checking...</p>
         ) : response ? (
-          <div className="p-2 ">
+          <div className="p-2">
             <h2 className="text-2xl font-bold font-joane text-center text-amber-300">
               Response :
             </h2>
-            <div className="p-5">
+            <div className="md:p-2">
               <p>
                 <strong className="text-amber-300 font-joane">
                   - Success :
