@@ -50,22 +50,24 @@ function Home() {
         Samanta Content Evaluator
       </div>
 
-      <div className="flex flex-col md:flex-row justify-between md:space-x-6 space-y-6 md:space-y-0 bg-cyan-700 w-full max-w-7xl p-8 sm:p-20 rounded-xl shadow-xl text-white overflow-hidden">
+      <div className="flex flex-col md:flex-row justify-between md:space-x-6 space-y-6 md:space-y-0 bg-cyan-700 w-full max-w-6xl p-8 sm:p-10 md:p-20 rounded-xl shadow-xl text-white overflow-hidden">
         <div className="relative">
           <div className="absolute z-0 w-40 h-40 bg-teal-400 rounded-full -left-36 -top-36"></div>
-          <div className="flex justify-center items-center absolute z-0 w-40 h-40 bg-teal-400 rounded-full -right-36 -bottom-32">
-            <button
-              className="tracking-widest cursor-pointer inline-block self-center bg-red-800 text-white font-bold rounded-lg px-6 py-2 uppercase text-sm"
-              onClick={handleReset}
-            >
-              Reset
-            </button>
-          </div>
+          {response ? (
+            <div className="flex justify-center items-center absolute z-0 w-36 h-36 bg-teal-400 rounded-full -right-20 -bottom-28 2xl:-right-36 md:-bottom-32">
+              <button
+                className="tracking-widest cursor-pointer inline-block self-center bg-red-800 text-white font-bold rounded-lg px-5 py-2 uppercase text-sm"
+                onClick={handleReset}
+              >
+                Reset
+              </button>
+            </div>
+          ) : null}
 
           <div className="relative z-10 bg-white rounded-xl shadow-lg px-14 py-20 text-gray-600">
             <div className="flex flex-col space-y-10">
-              <div>
-                <label for="" className="text-sm pb-2">
+              <div className="space-y-2">
+                <label for="" className="text-sm">
                   Content
                 </label>
 
@@ -79,7 +81,7 @@ function Home() {
                 ></textarea>
               </div>
 
-              <div>
+              <div className="space-y-2">
                 <label for="" className="text-sm pb-2">
                   Title
                 </label>
@@ -207,7 +209,7 @@ function Home() {
                   <strong className="text-amber-300 font-joane">
                     - Content :
                   </strong>{" "}
-                  {response.content}
+                  <span className="text-[12px]">{response.content}</span>
                 </p>
               </div>
             </div>
