@@ -49,6 +49,7 @@ function Home() {
       <div className="text-center font-joane text-amber-400 cursor-pointer text-4xl w-full italic font-semibold">
         Samanta Content Evaluator
       </div>
+
       <div className="flex flex-col md:flex-row justify-between md:space-x-6 space-y-6 md:space-y-0 bg-cyan-700 w-full max-w-7xl p-8 sm:p-20 rounded-xl shadow-xl text-white overflow-hidden">
         <div className="relative">
           <div className="absolute z-0 w-40 h-40 bg-teal-400 rounded-full -left-36 -top-36"></div>
@@ -64,7 +65,7 @@ function Home() {
           <div className="relative z-10 bg-white rounded-xl shadow-lg px-14 py-20 text-gray-600">
             <div className="flex flex-col space-y-10">
               <div>
-                <label for="" className="text-sm">
+                <label for="" className="text-sm pb-2">
                   Content
                 </label>
 
@@ -79,7 +80,7 @@ function Home() {
               </div>
 
               <div>
-                <label for="" className="text-sm">
+                <label for="" className="text-sm pb-2">
                   Title
                 </label>
 
@@ -102,9 +103,9 @@ function Home() {
           </div>
         </div>
 
-        <div className="max-w-xl relative">
+        <div className="max-w-xl">
           {isLoading ? (
-            <div role="status">
+            <div role="status" className="items-center">
               <svg
                 aria-hidden="true"
                 class="w-12 h-12 mr-2 text-gray-200 animate-spin dark:text-amber-400 fill-cyan-700"
