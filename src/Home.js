@@ -215,7 +215,7 @@ function Home() {
             <div className="text-xl font-mono">
               <strong className="flex gap-2">
                 <RxInfoCircled />
-                Welcome to the DoWell API
+                Welcome to the DoWell Samanta Content Evaluator
               </strong>
               You can determine if the content is written by AI or human,
               measure the confidence level (percentage) indicating whether AI or
