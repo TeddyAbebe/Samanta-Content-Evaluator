@@ -12,13 +12,14 @@ function Home() {
   const handleApiRequest = async () => {
     try {
       setIsLoading(true);
+      const apiKey = process.env.REACT_APP_API_KEY;
       const payload = {
         content: inputValue,
         title: title,
       };
 
       const response = await axios.post(
-        `https://100085.pythonanywhere.com/uxlivinglab/v1/content-scan/a12058a2-ee58-4c58-ba53-4e9df34fc8db/`,
+        `https://100085.pythonanywhere.com/uxlivinglab/v1/content-scan/${apiKey}/`,
         payload
       );
       setResponse(response.data);
