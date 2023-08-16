@@ -5,6 +5,7 @@ import { AiFillSetting } from "react-icons/ai";
 import { BiSolidMoon } from "react-icons/bi";
 import { BsSun } from "react-icons/bs";
 import { WiMoonAltThirdQuarter } from "react-icons/wi";
+import { MdDisplaySettings, MdPayment, MdArrowRight } from "react-icons/md";
 
 function Home() {
   const [response, setResponse] = useState(null);
@@ -12,6 +13,7 @@ function Home() {
   const [title, setTitle] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [theme, setTheme] = useState("default");
+  const [showOptions, setShowOptions] = useState(false);
   const [showThemeOptions, setShowThemeOptions] = useState(false);
 
   // Function to handle API request
@@ -51,6 +53,10 @@ function Home() {
     setResponse(null);
   };
 
+  const toggleOptions = () => {
+    setShowOptions(!showOptions);
+  };
+
   const toggleThemeOptions = () => {
     setShowThemeOptions(!showThemeOptions);
   };
@@ -63,47 +69,71 @@ function Home() {
 
   return (
     <div
-      className={`flex flex-col w-full min-h-screen justify-center items-center ${containerClass} `}
+      className={`relative flex flex-col w-full min-h-screen justify-center items-center ${containerClass} `}
     >
       <div className="text-center font-joane text-amber-400 cursor-pointer text-4xl w-full italic font-semibold">
         Samanta Content Evaluator
       </div>
+      {showThemeOptions && (
+        <div className="absolute flex flex-col z-10 bg-teal-400 right-[8.5%] top-28 py-2 px-2 rounded-lg shadow-md text-gray-700 text-xs">
+          <div className="flex justify-between items-center hover:bg-gray-300 rounded-lg  px-1 py-1 gap-1">
+            <WiMoonAltThirdQuarter className="" />
+            <button
+              className="text-xs font-serif font-semibold tracking-wider"
+              onClick={() => setTheme("default")}
+            >
+              Default
+            </button>
+          </div>
+          <div className="flex items-center hover:bg-gray-300 rounded-lg  px-1 py-1 gap-1">
+            <BiSolidMoon className="" />
+            <button
+              className="text-xs font-serif font-semibold tracking-wider"
+              onClick={() => setTheme("dark")}
+            >
+              Dark
+            </button>
+          </div>
+          <div className="flex items-center hover:bg-gray-300 rounded-lg  px-1 py-1 gap-1">
+            <BsSun className="" />
+            <button
+              className="text-xs font-serif font-semibold tracking-wider"
+              onClick={() => setTheme("light")}
+            >
+              Light
+            </button>
+          </div>
+        </div>
+      )}
 
       <div
         className={`relative flex flex-col md:flex-row justify-between md:space-x-6 space-y-6 md:space-y-0 ${containerClass} w-full max-w-6xl p-8 sm:p-10 md:p-20 rounded-xl shadow-xl text-white overflow-hidden`}
       >
-        <button onClick={toggleThemeOptions}>
+        <button onClick={toggleOptions}>
           <AiFillSetting
             className={`absolute z-0 right-10 top-0 w-7 h-7 text-teal-400 hover:cursor-pointer hover:animate-spin`}
           />
-          {showThemeOptions && (
-            <div className="absolute flex flex-col z-10 bg-white right-1 top-7 py-2 px-4 rounded-lg shadow-md text-gray-700 text-sm">
-              <div className="flex justify-between items-center hover:bg-gray-300 rounded-lg  px-1 py-1 gap-1">
-                <WiMoonAltThirdQuarter className="" />
+          {showOptions && (
+            <div className="absolute flex flex-col z-10 bg-teal-400 right-1 top-7 py-2 px-4 rounded-lg shadow-md text-gray-700 text-sm">
+              <div className="flex justify-evenly items-center hover:bg-gray-300 rounded-lg  px-1 py-1 gap-4">
+                <MdDisplaySettings className="" />
                 <button
                   className="text-sm font-serif font-semibold tracking-wider"
-                  onClick={() => setTheme("default")}
+                  onClick={toggleThemeOptions}
                 >
-                  Default
+                  Themes
                 </button>
+                <MdArrowRight />
               </div>
-              <div className="flex items-center hover:bg-gray-300 rounded-lg  px-1 py-1 gap-1">
-                <BiSolidMoon className="" />
+              <div className="flex justify-between items-center hover:bg-gray-300 rounded-lg  px-1 py-1 gap-2">
+                <MdPayment className="" />
                 <button
                   className="text-sm font-serif font-semibold tracking-wider"
-                  onClick={() => setTheme("dark")}
+                  // onClick={() => setTheme("default")}
                 >
-                  Dark
+                  Payment
                 </button>
-              </div>
-              <div className="flex items-center hover:bg-gray-300 rounded-lg  px-1 py-1 gap-1">
-                <BsSun className="" />
-                <button
-                  className="text-sm font-serif font-semibold tracking-wider"
-                  onClick={() => setTheme("light")}
-                >
-                  Light
-                </button>
+                <MdArrowRight />
               </div>
             </div>
           )}
