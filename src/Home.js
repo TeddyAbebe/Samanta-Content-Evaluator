@@ -51,8 +51,6 @@ function Home() {
     setResponse(null);
   };
 
-  const settingHandler = () => {};
-
   const toggleThemeOptions = () => {
     setShowThemeOptions(!showThemeOptions);
   };
