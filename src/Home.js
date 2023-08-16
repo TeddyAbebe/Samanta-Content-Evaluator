@@ -56,7 +56,7 @@ function Home() {
   };
 
   const containerClass = {
-    default: "bg-cyan-700",
+    default: "bg-cyan-700 text-white",
     dark: "bg-slate-800 text-gray-400",
     light: "bg-gray-200 text-black",
   }[theme];
