@@ -276,7 +276,7 @@ function Home() {
               </div>
             </div>
           ) : (
-            <div className=" text-base font-mono">
+            <div className={`text-base font-mono text-${containerClass}`}>
               <strong className="flex gap-2">
                 <RxInfoCircled />
                 Welcome to the DoWell Samanta Content Evaluator
