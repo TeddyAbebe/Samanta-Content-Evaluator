@@ -158,7 +158,7 @@ function Home() {
               </div>
 
               <button
-                className={`tracking-widest cursor-pointer inline-block self-center ${containerClass} border border-cyan-700 text-white font-bold rounded-lg px-6 py-2 uppercase text-sm`}
+                className={`tracking-widest cursor-pointer inline-block self-center ${containerClass} border border-cyan-700 font-bold rounded-lg px-6 py-2 uppercase text-sm`}
                 onClick={handleApiRequest}
               >
                 Check
