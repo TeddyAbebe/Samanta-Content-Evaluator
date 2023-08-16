@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { RxInfoCircled } from "react-icons/rx";
+import { AiFillSetting } from "react-icons/ai";
+import { BiSolidMoon } from "react-icons/bi";
+import { BsSun } from "react-icons/bs";
+import { WiMoonAltThirdQuarter } from "react-icons/wi";
 
 function Home() {
   const [response, setResponse] = useState(null);
   const [inputValue, setInputValue] = useState("");
   const [title, setTitle] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [theme, setTheme] = useState("default");
+  const [showThemeOptions, setShowThemeOptions] = useState(false);
 
   // Function to handle API request
   const handleApiRequest = async () => {
@@ -45,15 +51,67 @@ function Home() {
     setResponse(null);
   };
 
+  const settingHandler = () => {};
+
+  const toggleThemeOptions = () => {
+    setShowThemeOptions(!showThemeOptions);
+  };
+
+  const containerClass = {
+    default: "bg-cyan-700",
+    dark: "bg-slate-800 text-gray-400",
+    light: "bg-gray-200 text-gray-800",
+  }[theme];
+
   return (
-    <div className="flex flex-col w-full min-h-screen justify-center items-center">
+    <div
+      className={`flex flex-col w-full min-h-screen justify-center items-center ${containerClass} `}
+    >
       <div className="text-center font-joane text-amber-400 cursor-pointer text-4xl w-full italic font-semibold">
         Samanta Content Evaluator
       </div>
 
-      <div className="flex flex-col md:flex-row justify-between md:space-x-6 space-y-6 md:space-y-0 bg-cyan-700 w-full max-w-6xl p-8 sm:p-10 md:p-20 rounded-xl shadow-xl text-white overflow-hidden">
+      <div
+        className={`relative flex flex-col md:flex-row justify-between md:space-x-6 space-y-6 md:space-y-0 ${containerClass} w-full max-w-6xl p-8 sm:p-10 md:p-20 rounded-xl shadow-xl text-white overflow-hidden`}
+      >
+        <button onClick={toggleThemeOptions}>
+          <AiFillSetting
+            className={`absolute z-0 right-10 top-0 w-7 h-7 text-teal-400 hover:cursor-pointer hover:animate-spin`}
+          />
+          {showThemeOptions && (
+            <div className="absolute flex flex-col z-10 bg-white right-1 top-7 py-2 px-4 rounded-lg shadow-md text-gray-700 text-sm">
+              <div className="flex justify-between items-center hover:bg-gray-300 rounded-lg  px-1 py-1 gap-1">
+                <WiMoonAltThirdQuarter className="" />
+                <button
+                  className="text-sm font-serif font-semibold tracking-wider"
+                  onClick={() => setTheme("default")}
+                >
+                  Default
+                </button>
+              </div>
+              <div className="flex items-center hover:bg-gray-300 rounded-lg  px-1 py-1 gap-1">
+                <BiSolidMoon className="" />
+                <button
+                  className="text-sm font-serif font-semibold tracking-wider"
+                  onClick={() => setTheme("dark")}
+                >
+                  Dark
+                </button>
+              </div>
+              <div className="flex items-center hover:bg-gray-300 rounded-lg  px-1 py-1 gap-1">
+                <BsSun className="" />
+                <button
+                  className="text-sm font-serif font-semibold tracking-wider"
+                  onClick={() => setTheme("light")}
+                >
+                  Light
+                </button>
+              </div>
+            </div>
+          )}
+        </button>
         <div className="relative">
-          <div className="absolute z-0 w-40 h-40 bg-teal-400 rounded-full -left-36 -top-36"></div>
+          <div className="absolute z-0 w-40 h-40 bg-teal-400 rounded-full -left-36 -top-36"></div>{" "}
           {response ? (
             <div className="flex justify-center items-center absolute z-0 w-36 h-36 bg-teal-400 rounded-full -right-20 -bottom-28 2xl:-right-36 md:-bottom-32">
               <button
@@ -64,11 +122,13 @@ function Home() {
               </button>
             </div>
           ) : null}
-
-          <div className="relative z-10 bg-white rounded-xl shadow-lg px-14 py-20 text-gray-600">
+          <div className="relative z-10 bg-gray-200 rounded-xl shadow-lg px-14 py-20 text-gray-600">
             <div className="flex flex-col space-y-10">
               <div className="space-y-2">
-                <label for="" className="text-sm">
+                <label
+                  for=""
+                  className="text-sm font-serif font-semibold tracking-wide"
+                >
                   Content
                 </label>
 
@@ -83,7 +143,10 @@ function Home() {
               </div>
 
               <div className="space-y-2">
-                <label for="" className="text-sm pb-2">
+                <label
+                  for=""
+                  className="text-sm font-serif font-semibold tracking-wide"
+                >
                   Title
                 </label>
 
@@ -97,7 +160,7 @@ function Home() {
               </div>
 
               <button
-                className="tracking-widest cursor-pointer inline-block self-center bg-cyan-700 text-white font-bold rounded-lg px-6 py-2 uppercase text-sm"
+                className={`tracking-widest cursor-pointer inline-block self-center ${containerClass} border border-cyan-700 text-white font-bold rounded-lg px-6 py-2 uppercase text-sm`}
                 onClick={handleApiRequest}
               >
                 Check
@@ -215,7 +278,7 @@ function Home() {
               </div>
             </div>
           ) : (
-            <div className="text-xl font-mono">
+            <div className=" text-base font-mono">
               <strong className="flex gap-2">
                 <RxInfoCircled />
                 Welcome to the DoWell Samanta Content Evaluator
