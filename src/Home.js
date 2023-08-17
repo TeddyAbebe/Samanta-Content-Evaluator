@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { RxInfoCircled } from "react-icons/rx";
-import { AiFillSetting } from "react-icons/ai";
+import { AiFillSetting, AiFillCloseCircle } from "react-icons/ai";
 import { BiSolidMoon } from "react-icons/bi";
 import { BsSun } from "react-icons/bs";
 import { WiMoonAltThirdQuarter } from "react-icons/wi";
-import { MdDisplaySettings, MdPayment, MdArrowRight } from "react-icons/md";
+import { TiArrowSortedUp, TiArrowSortedDown } from "react-icons/ti";
+import { MdDisplaySettings, MdPayment } from "react-icons/md";
 
 function Home() {
   const [response, setResponse] = useState(null);
@@ -15,6 +16,7 @@ function Home() {
   const [theme, setTheme] = useState("default");
   const [showOptions, setShowOptions] = useState(false);
   const [showThemeOptions, setShowThemeOptions] = useState(false);
+  const [showPaymentOptions, setShowPaymentOptions] = useState(false);
 
   // Function to handle API request
   const handleApiRequest = async () => {
@@ -59,6 +61,11 @@ function Home() {
 
   const toggleThemeOptions = () => {
     setShowThemeOptions(!showThemeOptions);
+    setShowPaymentOptions(false);
+  };
+  const togglePaymentOptions = () => {
+    setShowPaymentOptions(!showPaymentOptions);
+    setShowThemeOptions(false);
   };
 
   const containerClass = {
@@ -74,70 +81,132 @@ function Home() {
       <div className="text-center font-joane text-amber-400 cursor-pointer text-4xl w-full italic font-semibold">
         Samanta Content Evaluator
       </div>
-      {showThemeOptions && (
-        <div className="absolute flex flex-col z-10 bg-teal-400 right-[8.5%] top-28 py-2 px-2 rounded-lg shadow-md text-gray-700 text-xs">
-          <div className="flex justify-between items-center hover:bg-gray-300 rounded-lg  px-1 py-1 gap-1">
-            <WiMoonAltThirdQuarter className="" />
-            <button
-              className="text-xs font-serif font-semibold tracking-wider"
-              onClick={() => setTheme("default")}
-            >
-              Default
-            </button>
-          </div>
-          <div className="flex items-center hover:bg-gray-300 rounded-lg  px-1 py-1 gap-1">
-            <BiSolidMoon className="" />
-            <button
-              className="text-xs font-serif font-semibold tracking-wider"
-              onClick={() => setTheme("dark")}
-            >
-              Dark
-            </button>
-          </div>
-          <div className="flex items-center hover:bg-gray-300 rounded-lg  px-1 py-1 gap-1">
-            <BsSun className="" />
-            <button
-              className="text-xs font-serif font-semibold tracking-wider"
-              onClick={() => setTheme("light")}
-            >
-              Light
-            </button>
-          </div>
-        </div>
-      )}
 
       <div
-        className={`relative flex flex-col md:flex-row justify-between md:space-x-6 space-y-6 md:space-y-0 ${containerClass} w-full max-w-6xl p-8 sm:p-10 md:p-20 rounded-xl shadow-xl text-white overflow-hidden`}
+        className={`flex flex-col md:flex-row justify-between md:space-x-6 space-y-6 md:space-y-0 ${containerClass} w-full max-w-6xl p-8 sm:p-10 md:p-20 rounded-xl shadow-xl text-white overflow-hidden`}
       >
         <button onClick={toggleOptions}>
-          <AiFillSetting
-            className={`absolute z-0 right-10 top-0 w-7 h-7 text-teal-400 hover:cursor-pointer hover:animate-spin`}
-          />
-          {showOptions && (
-            <div className="absolute flex flex-col z-10 bg-teal-400 right-1 top-7 py-2 px-4 rounded-lg shadow-md text-gray-700 text-sm">
-              <div className="flex justify-evenly items-center hover:bg-gray-300 rounded-lg  px-1 py-1 gap-4">
-                <MdDisplaySettings className="" />
-                <button
-                  className="text-sm font-serif font-semibold tracking-wider"
-                  onClick={toggleThemeOptions}
-                >
-                  Themes
-                </button>
-                <MdArrowRight />
-              </div>
-              <div className="flex justify-between items-center hover:bg-gray-300 rounded-lg  px-1 py-1 gap-2">
-                <MdPayment className="" />
-                <button
-                  className="text-sm font-serif font-semibold tracking-wider"
-                  // onClick={() => setTheme("default")}
-                >
-                  Payment
-                </button>
-                <MdArrowRight />
-              </div>
-            </div>
+          {!showOptions ? (
+            <AiFillSetting
+              className={`absolute z-0 right-[10%] top-10 w-7 h-7 text-teal-400 hover:cursor-pointer hover:animate-spin`}
+            />
+          ) : (
+            <AiFillCloseCircle
+              className={`absolute z-0 right-[10%] top-10 w-7 h-7 text-red-800 hover:cursor-pointer`}
+            />
           )}
         </button>
+
+        {showOptions && (
+          <div className="absolute flex flex-col ite gap-2 z-10 bg-teal-400 right-[3.5%] top-[8.3%] pt-5 pb-5 px-4 rounded-lg shadow-md text-gray-700 text-sm w-[15%]">
+            <div className="flex justify-center items-center">
+              <button
+                className=" flex items-center hover:bg-gray-300 rounded-lg  px-1 py-3 border-b border-gray-800 gap-4 text-sm font-serif font-semibold tracking-wider"
+                onClick={toggleThemeOptions}
+              >
+                <MdDisplaySettings />
+                {showThemeOptions ? (
+                  <>
+                    Themes
+                    <TiArrowSortedUp />
+                  </>
+                ) : (
+                  <>
+                    Themes
+                    <TiArrowSortedDown />
+                  </>
+                )}
+              </button>
+            </div>
+
+            {showThemeOptions && (
+              <div className="flex flex-col gap-2 bg-teal-400 py-2 px-1 rounded-lg shadow-md mb-4 border-x border-gray-700 text-gray-700 text-xs">
+                <div>
+                  <button
+                    className="flex w-full items-center hover:bg-[#0E7490] hover:text-white rounded  px-4 py-2 gap-5 text-xs font-serif font-semibold tracking-wider"
+                    onClick={() => setTheme("default")}
+                  >
+                    <WiMoonAltThirdQuarter />
+                    Default
+                  </button>
+                </div>
+
+                <div>
+                  <button
+                    className="flex w-full items-center hover:bg-[#1E293B] hover:text-[#9C9886] rounded  px-4 py-2 gap-5 text-xs font-serif font-semibold tracking-wider"
+                    onClick={() => setTheme("dark")}
+                  >
+                    <BiSolidMoon />
+                    Dark
+                  </button>
+                </div>
+
+                <div>
+                  <button
+                    className="flex w-full items-center hover:bg-white rounded  px-4 py-2 gap-5 text-xs font-serif font-semibold tracking-wider"
+                    onClick={() => setTheme("light")}
+                  >
+                    <BsSun />
+                    Light
+                  </button>
+                </div>
+              </div>
+            )}
+
+            <div className="flex justify-center items-center">
+              <button
+                className="flex items-center hover:bg-gray-300 rounded-lg  px-1 py-3 border-t border-gray-800 gap-3 text-sm font-serif font-semibold tracking-wider"
+                onClick={togglePaymentOptions}
+              >
+                <MdPayment />
+                {showPaymentOptions ? (
+                  <>
+                    Payments
+                    <TiArrowSortedUp />
+                  </>
+                ) : (
+                  <>
+                    Payments
+                    <TiArrowSortedDown />
+                  </>
+                )}
+              </button>
+            </div>
+
+            {showPaymentOptions && (
+              <div className="flex flex-col gap-2 bg-teal-400 pt-2 pb-5 px-1 rounded-lg shadow-md mb-4 border-x border-gray-700 text-gray-700 text-xs">
+                <div className="flex items-center justify-center bg-green-600 text-white rounded-lg  p-3">
+                  <div className="text-xs font-serif font-semibold tracking-wider">
+                    Credit System
+                  </div>
+                </div>
+                <div className="flex flex-col hover:bg-gray-300 rounded border-b border-gray-700  px-1 py-1 gap-1 cursor-pointer">
+                  <div className="text-xs font-serif font-semibold tracking-wider ">
+                    Credit:
+                  </div>
+                  <div className="pl-2">400</div>
+                </div>
+
+                <div className="flex flex-col hover:bg-gray-300 rounded border-b border-gray-700  px-1 py-1 gap-1 cursor-pointer">
+                  <div className="text-xs font-serif font-semibold tracking-wider">
+                    Status:
+                  </div>
+                  <div className="pl-2">inactive</div>
+                </div>
+
+                <div className="flex items-center justify-center bg-slate-700 text-white hover:bg-green-600 rounded-sm p-2">
+                  <button
+                    className="text-xs font-serif font-semibold tracking-wider"
+                    // onClick={() => setTheme("light")}
+                  >
+                    Buy Credits
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
         <div className="relative">
           <div className="absolute z-0 w-40 h-40 bg-teal-400 rounded-full -left-36 -top-36"></div>{" "}
           {response ? (
