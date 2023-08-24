@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { RxInfoCircled } from "react-icons/rx";
 import { AiFillSetting, AiFillCloseCircle } from "react-icons/ai";
