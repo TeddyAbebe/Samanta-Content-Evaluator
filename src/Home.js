@@ -17,55 +17,42 @@ function Home() {
   const [showOptions, setShowOptions] = useState(false);
   const [showThemeOptions, setShowThemeOptions] = useState(false);
   const [showPaymentOptions, setShowPaymentOptions] = useState(false);
-  const [moduleServiceResponse, setModuleServiceResponse] = useState(null);
 
-  const callModuleService = async () => {
-    try {
-      const apiKey = process.env.REACT_APP_API_KEY;
-      const moduleServicePayload = {
+const handleApiRequest = async () => {
+  try {
+    setIsLoading(true);
+    const apiKey = process.env.REACT_APP_API_KEY;
+    const payload = {
+      content: inputValue,
+      title: title,
+    };
+
+    // Call the process module service API
+    const moduleServiceResponse = await axios.post(
+      `https://100105.pythonanywhere.com/api/v3/process-services/?type=module_service&api_key=${apiKey}`,
+      {
         sub_service_ids: ["DOWELL100342"],
         service_id: "DOWELL10034",
-      };
-
-      const response = await axios.post(
-        `https://100105.pythonanywhere.com/api/v3/process-services/?type=module_service&api_key=${apiKey}`,
-        moduleServicePayload
-      );
-      setModuleServiceResponse(response.data);
-    } catch (error) {
-      console.error("Error in callModuleService:", error);
-    }
-  };
-
-  useEffect(() => {
-    callModuleService();
-  }, []);
-
-  // Function to handle API request
-  const handleApiRequest = async () => {
-    try {
-      setIsLoading(true);
-      const apiKey = process.env.REACT_APP_API_KEY;
-      const payload = {
-        content: inputValue,
-        title: title,
-      };
-
-      if (moduleServiceResponse && moduleServiceResponse.success) {
-        const response = await axios.post(
-          `https://100085.pythonanywhere.com/uxlivinglab/v1/content-scan/${apiKey}/`,
-          payload
-        );
-        setResponse(response.data);
-      } else {
-        console.log("Module service response indicates failure.");
       }
-    } catch (error) {
-      console.error("Error in handleApiRequest:", error);
-    } finally {
-      setIsLoading(false);
+    );
+
+    if (moduleServiceResponse.data.success) {
+      // Call the Samanta Content Evaluator API
+      const response = await axios.post(
+        `https://100085.pythonanywhere.com/uxlivinglab/v1/content-scan/${apiKey}/`,
+        payload
+      );
+      setResponse(response.data);
+    } else {
+      console.log("Module service response indicates failure.");
     }
-  };
+  } catch (error) {
+    console.error(error);
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   // Function to handle input value changes
   const handleInputChange = (event) => {
