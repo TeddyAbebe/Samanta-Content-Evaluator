@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { RxInfoCircled } from "react-icons/rx";
 import { AiFillSetting, AiFillCloseCircle } from "react-icons/ai";
@@ -17,6 +17,29 @@ function Home() {
   const [showOptions, setShowOptions] = useState(false);
   const [showThemeOptions, setShowThemeOptions] = useState(false);
   const [showPaymentOptions, setShowPaymentOptions] = useState(false);
+  const [moduleServiceResponse, setModuleServiceResponse] = useState(null);
+
+  const callModuleService = async () => {
+    try {
+      const apiKey = process.env.REACT_APP_API_KEY;
+      const moduleServicePayload = {
+        sub_service_ids: ["DOWELL100342"],
+        service_id: "DOWELL10034",
+      };
+
+      const response = await axios.post(
+        `https://100105.pythonanywhere.com/api/v3/process-services/?type=module_service&api_key=${apiKey}`,
+        moduleServicePayload
+      );
+      setModuleServiceResponse(response.data);
+    } catch (error) {
+      console.error("Error in callModuleService:", error);
+    }
+  };
+
+  useEffect(() => {
+    callModuleService();
+  }, []);
 
   // Function to handle API request
   const handleApiRequest = async () => {
@@ -28,13 +51,17 @@ function Home() {
         title: title,
       };
 
-      const response = await axios.post(
-        `https://100085.pythonanywhere.com/uxlivinglab/v1/content-scan/${apiKey}/`,
-        payload
-      );
-      setResponse(response.data);
+      if (moduleServiceResponse && moduleServiceResponse.success) {
+        const response = await axios.post(
+          `https://100085.pythonanywhere.com/uxlivinglab/v1/content-scan/${apiKey}/`,
+          payload
+        );
+        setResponse(response.data);
+      } else {
+        console.log("Module service response indicates failure.");
+      }
     } catch (error) {
-      console.error(error);
+      console.error("Error in handleApiRequest:", error);
     } finally {
       setIsLoading(false);
     }
@@ -184,14 +211,14 @@ function Home() {
                   <div className="text-xs font-serif font-semibold tracking-wider ">
                     Credit:
                   </div>
-                  <div className="pl-2">400</div>
+                  <div className="pl-2 font-extrabold">{response.credits}</div>
                 </div>
 
                 <div className="flex flex-col hover:bg-gray-300 rounded border-b border-gray-700  px-1 py-1 gap-1 cursor-pointer">
                   <div className="text-xs font-serif font-semibold tracking-wider">
                     Status:
                   </div>
-                  <div className="pl-2">inactive</div>
+                  <div className="pl-2 font-bold">inactive</div>
                 </div>
 
                 <div className="flex items-center justify-center bg-slate-700 text-white hover:bg-green-600 rounded-sm p-2">
