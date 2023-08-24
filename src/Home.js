@@ -9,6 +9,7 @@ import { TiArrowSortedUp, TiArrowSortedDown } from "react-icons/ti";
 import { MdDisplaySettings, MdPayment } from "react-icons/md";
 
 function Home() {
+  const [credits, setCredits] = useState(localStorage.getItem("credits") || 0);
   const [response, setResponse] = useState(null);
   const [inputValue, setInputValue] = useState("");
   const [title, setTitle] = useState("");
@@ -18,41 +19,48 @@ function Home() {
   const [showThemeOptions, setShowThemeOptions] = useState(false);
   const [showPaymentOptions, setShowPaymentOptions] = useState(false);
 
-const handleApiRequest = async () => {
-  try {
-    setIsLoading(true);
-    const apiKey = process.env.REACT_APP_API_KEY;
-    const payload = {
-      content: inputValue,
-      title: title,
-    };
+  const handleApiRequest = async () => {
+    try {
+      setIsLoading(true);
+      const apiKey = process.env.REACT_APP_API_KEY;
+      const payload = {
+        content: inputValue,
+        title: title,
+      };
 
-    // Call the process module service API
-    const moduleServiceResponse = await axios.post(
-      `https://100105.pythonanywhere.com/api/v3/process-services/?type=module_service&api_key=${apiKey}`,
-      {
-        sub_service_ids: ["DOWELL100342"],
-        service_id: "DOWELL10034",
-      }
-    );
-
-    if (moduleServiceResponse.data.success) {
-      // Call the Samanta Content Evaluator API
-      const response = await axios.post(
-        `https://100085.pythonanywhere.com/uxlivinglab/v1/content-scan/${apiKey}/`,
-        payload
+      // Call the process module service API
+      const moduleServiceResponse = await axios.post(
+        `https://100105.pythonanywhere.com/api/v3/process-services/?type=module_service&api_key=${apiKey}`,
+        {
+          sub_service_ids: ["DOWELL100342"],
+          service_id: "DOWELL10034",
+        }
       );
-      setResponse(response.data);
-    } else {
-      console.log("Module service response indicates failure.");
-    }
-  } catch (error) {
-    console.error(error);
-  } finally {
-    setIsLoading(false);
-  }
-};
 
+      if (moduleServiceResponse.data.success) {
+        // Call the Samanta Content Evaluator API
+        const response = await axios.post(
+          `https://100085.pythonanywhere.com/uxlivinglab/v1/content-scan/${apiKey}/`,
+          payload
+        );
+
+        // Update the state with the API response
+        setResponse(response.data);
+
+        // Update the credits state
+        setCredits(response.data.credits);
+
+        // Store the credits value in local storage
+        localStorage.setItem("credits", response.data.credits);
+      } else {
+        console.log("Module service response indicates failure.");
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   // Function to handle input value changes
   const handleInputChange = (event) => {
@@ -194,11 +202,12 @@ const handleApiRequest = async () => {
                     Credit System
                   </div>
                 </div>
+
                 <div className="flex flex-col hover:bg-gray-300 rounded border-b border-gray-700  px-1 py-1 gap-1 cursor-pointer">
                   <div className="text-xs font-serif font-semibold tracking-wider ">
                     Credit:
                   </div>
-                  <div className="pl-2 font-extrabold">{response.credits}</div>
+                  <div className="pl-2 font-extrabold">{credits}</div>
                 </div>
 
                 <div className="flex flex-col hover:bg-gray-300 rounded border-b border-gray-700  px-1 py-1 gap-1 cursor-pointer">
