@@ -93,14 +93,16 @@ function Home() {
   const containerClass = {
     default: "bg-cyan-700 text-white",
     dark: "bg-slate-800 text-gray-400",
-    light: "bg-gray-200 text-black",
+    light: "bg-gray-300 text-black border-black",
   }[theme];
 
   return (
     <div
       className={`relative flex flex-col w-full min-h-screen justify-center items-center ${containerClass} `}
     >
-      <div className="text-center font-joane text-amber-400 cursor-pointer text-4xl w-full italic font-semibold">
+      <div
+        className={`text-center font-joane ${containerClass} cursor-pointer text-4xl w-full italic font-semibold`}
+      >
         Samanta Content Evaluator
       </div>
 
@@ -110,20 +112,22 @@ function Home() {
         <button onClick={toggleOptions}>
           {!showOptions ? (
             <AiFillSetting
-              className={`absolute z-0 right-[10%] top-10 w-7 h-7 text-teal-400 hover:cursor-pointer hover:animate-spin`}
+              className={`absolute z-0 right-[1%] top-[0.5%] lg:right-[10%] lg:top-10 w-7 h-7 text-teal-400 hover:cursor-pointer hover:animate-spin`}
             />
           ) : (
             <AiFillCloseCircle
-              className={`absolute z-0 right-[10%] top-10 w-7 h-7 text-red-800 hover:cursor-pointer`}
+              className={`absolute z-0 right-[1%] top-[0.5%] lg:right-[10%] lg:top-10 w-7 h-7 text-red-800 hover:cursor-pointer`}
             />
           )}
         </button>
 
         {showOptions && (
-          <div className="absolute flex flex-col ite gap-2 z-10 bg-teal-400 right-[3.5%] top-[8.3%] pt-5 pb-5 px-4 rounded-lg shadow-md text-gray-700 text-sm w-[15%]">
+          <div
+            className={`absolute border flex flex-col gap-2 z-20 ${containerClass} text-white right-[1%] top-[1%] lg:right-[2%] lg:top-[8.3%] pt-5 pb-5 px-4 rounded-lg shadow-md text-sm md:w-[18%]`}
+          >
             <div className="flex justify-center items-center">
               <button
-                className=" flex items-center hover:bg-gray-300 rounded-lg  px-1 py-3 border-b border-gray-800 gap-4 text-sm font-serif font-semibold tracking-wider"
+                className=" flex items-center hover:bg-gray-500 hover:text-black rounded-lg  px-1 py-3 border-b border-gray-800 gap-4 text-sm font-serif font-semibold tracking-wider"
                 onClick={toggleThemeOptions}
               >
                 <MdDisplaySettings />
@@ -142,7 +146,7 @@ function Home() {
             </div>
 
             {showThemeOptions && (
-              <div className="flex flex-col gap-2 bg-teal-400 py-2 px-1 rounded-lg shadow-md mb-4 border-x border-gray-700 text-gray-700 text-xs">
+              <div className="flex flex-col gap-2 bg-yellow-100 py-2 px-1 rounded-lg shadow-md mb-4 border-x border-gray-700 text-gray-700 text-xs">
                 <div>
                   <button
                     className="flex w-full items-center hover:bg-[#0E7490] hover:text-white rounded  px-4 py-2 gap-5 text-xs font-serif font-semibold tracking-wider"
@@ -177,7 +181,7 @@ function Home() {
 
             <div className="flex justify-center items-center">
               <button
-                className="flex items-center hover:bg-gray-300 rounded-lg  px-1 py-3 border-t border-gray-800 gap-3 text-sm font-serif font-semibold tracking-wider"
+                className="flex items-center hover:bg-gray-500 hover:text-black rounded-lg  px-1 py-3 border-t border-gray-800 gap-3 text-sm font-serif font-semibold tracking-wider"
                 onClick={togglePaymentOptions}
               >
                 <MdPayment />
@@ -196,7 +200,7 @@ function Home() {
             </div>
 
             {showPaymentOptions && (
-              <div className="flex flex-col gap-2 bg-teal-400 pt-2 pb-5 px-1 rounded-lg shadow-md mb-4 border-x border-gray-700 text-gray-700 text-xs">
+              <div className="flex flex-col gap-2 bg-yellow-100 pt-2 pb-5 px-1 rounded-lg shadow-md mb-4 border-x border-gray-700 text-gray-700 text-xs">
                 <div className="flex items-center justify-center bg-green-600 text-white rounded-lg  p-3">
                   <div className="text-xs font-serif font-semibold tracking-wider">
                     Credit System
@@ -311,86 +315,86 @@ function Home() {
               <span class="sr-only">Loading...</span>
             </div>
           ) : response ? (
-            <div>
-              <h2 className="text-2xl font-bold font-joane text-center text-amber-300">
+            <div className={`${containerClass}`}>
+              <h2 className="text-2xl font-bold font-joane text-center text-amber-500">
                 Response :
               </h2>
               <div className="p-2 text-base space-y-1">
                 <p>
-                  <strong className="text-amber-300 font-joane">
+                  <strong className="text-amber-500 font-joane">
                     - Success :
                   </strong>{" "}
                   {response.success ? "Yes" : "No"}
                 </p>
                 <p>
                   {" "}
-                  <strong className="text-amber-300 font-joane">
+                  <strong className="text-amber-500 font-joane">
                     - Message :
                   </strong>{" "}
                   {response.message}
                 </p>
                 <p>
-                  <strong className="text-amber-300 font-joane">
+                  <strong className="text-amber-500 font-joane">
                     - Confidence level created by AI :
                   </strong>{" "}
                   {response["Confidence level created by AI"]}
                 </p>
                 <p>
-                  <strong className="text-amber-300 font-joane">
+                  <strong className="text-amber-500 font-joane">
                     - Confidence level created by Human :
                   </strong>{" "}
                   {response["Confidence level created by Human"]}
                 </p>
                 <p>
-                  <strong className="text-amber-300 font-joane">
+                  <strong className="text-amber-500 font-joane">
                     - AI Check :
                   </strong>{" "}
                   {response["AI Check"]}
                 </p>
                 <p>
-                  <strong className="text-amber-300 font-joane">
+                  <strong className="text-amber-500 font-joane">
                     - Plagiarised :
                   </strong>{" "}
                   {response.Plagiarised}
                 </p>
                 <p>
-                  <strong className="text-amber-300 font-joane">
+                  <strong className="text-amber-500 font-joane">
                     - Creative :
                   </strong>{" "}
                   {response.Creative}
                 </p>
                 <p>
-                  <strong className="text-amber-300 font-joane">
+                  <strong className="text-amber-500 font-joane">
                     - Total characters :
                   </strong>{" "}
                   {response["Total characters"]}
                 </p>
                 <p>
-                  <strong className="text-amber-300 font-joane">
+                  <strong className="text-amber-500 font-joane">
                     - Total sentences :
                   </strong>{" "}
                   {response["Total sentences"]}
                 </p>
                 <p>
-                  <strong className="text-amber-300 font-joane">
+                  <strong className="text-amber-500 font-joane">
                     - Total paragraphs :
                   </strong>{" "}
                   {response["Total paragraphs"]}
                 </p>
                 <p>
-                  <strong className="text-amber-300 font-joane">
+                  <strong className="text-amber-500 font-joane">
                     - Credits :
                   </strong>{" "}
                   {response.credits}
                 </p>
                 <p>
-                  <strong className="text-amber-300 font-joane">
+                  <strong className="text-amber-500 font-joane">
                     - Title :
                   </strong>{" "}
                   {response.title}
                 </p>
                 <p>
-                  <strong className="text-amber-300 font-joane">
+                  <strong className="text-amber-500 font-joane">
                     - Content :
                   </strong>{" "}
                   <span className="text-[12px]">{response.content}</span>
