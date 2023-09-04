@@ -202,7 +202,7 @@ function Home() {
             {showPaymentOptions && (
               <div className="flex flex-col gap-2 bg-yellow-100 pt-2 pb-5 px-1 rounded-lg shadow-md mb-4 border-x border-gray-700 text-gray-700 text-xs">
                 <div className="flex items-center justify-center bg-green-600 text-white rounded-lg  p-3">
-                  <div className="text-xs font-serif font-semibold tracking-wider">
+                  <div className="text-xs font-serif font-bold tracking-wider">
                     Credit System
                   </div>
                 </div>
@@ -221,13 +221,13 @@ function Home() {
                   <div className="pl-2 font-bold">inactive</div>
                 </div>
 
-                <div className="flex items-center justify-center bg-slate-700 text-white hover:bg-green-600 rounded-sm p-2">
-                  <a href="https://dowellstore.org/pricing/" target="blank">
-                    <button className="text-xs font-serif font-semibold tracking-wider">
+                <a href="https://dowellstore.org/pricing/" target="blank">
+                  <div className="flex items-center justify-center bg-slate-700 text-white hover:bg-green-600 rounded-sm p-2">
+                    <button className="text-xs font-serif font-bold tracking-wider">
                       Buy Credits
                     </button>
-                  </a>
-                </div>
+                  </div>
+                </a>
               </div>
             )}
           </div>
