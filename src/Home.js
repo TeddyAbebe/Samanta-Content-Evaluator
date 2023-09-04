@@ -222,12 +222,11 @@ function Home() {
                 </div>
 
                 <div className="flex items-center justify-center bg-slate-700 text-white hover:bg-green-600 rounded-sm p-2">
-                  <button
-                    className="text-xs font-serif font-semibold tracking-wider"
-                    // onClick={() => setTheme("light")}
-                  >
-                    Buy Credits
-                  </button>
+                  <a href="https://dowellstore.org/pricing/" target="blank">
+                    <button className="text-xs font-serif font-semibold tracking-wider">
+                      Buy Credits
+                    </button>
+                  </a>
                 </div>
               </div>
             )}
