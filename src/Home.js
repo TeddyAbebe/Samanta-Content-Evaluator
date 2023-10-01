@@ -28,7 +28,6 @@ function Home() {
         title: title,
       };
 
-      // Call the process module service API
       const moduleServiceResponse = await axios.post(
         `https://100105.pythonanywhere.com/api/v3/process-services/?type=module_service&api_key=${apiKey}`,
         {
@@ -38,19 +37,15 @@ function Home() {
       );
 
       if (moduleServiceResponse.data.success) {
-        // Call the Samanta Content Evaluator API
         const response = await axios.post(
           `https://100085.pythonanywhere.com/uxlivinglab/v1/content-scan/${apiKey}/`,
           payload
         );
 
-        // Update the state with the API response
         setResponse(response.data);
 
-        // Update the credits state
         setCredits(response.data.credits);
 
-        // Store the credits value in local storage
         localStorage.setItem("credits", response.data.credits);
       } else {
         console.log("Module service response indicates failure.");
@@ -62,7 +57,6 @@ function Home() {
     }
   };
 
-  // Function to handle input value changes
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
